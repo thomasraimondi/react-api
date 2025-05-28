@@ -92,11 +92,13 @@ export default function Main() {
 
   return (
     <>
-      <div className="container mx-auto flex-grow-1 border-2 border-b-black rounded-lg my-4">
-        <div className="flex justify-between items-center p-4 border-b-2">
+      <div className="container mx-auto border-2 border-b-black rounded-lg my-4">
+        <div className="flex justify-between items-center p-4">
           <h1 className="text-2xl font-bold ">Lista Attori e Attrici</h1>
           <Search search={search} setSearch={setSearch} />
         </div>
+      </div>
+      <div className="container mx-auto flex-grow-1 border-2 border-b-black rounded-lg my-4 p-4">
         {isLoading ? (
           <div className="flex justify-center items-center h-full">
             <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
