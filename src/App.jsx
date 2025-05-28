@@ -5,10 +5,9 @@ import Footer from "./components/layout/Footer";
 function App() {
   return (
     <>
+      <Header />
       <div className="container mx-auto flex flex-col min-h-screen">
-        <Header />
         <Main />
-        <Footer />
       </div>
     </>
   );
