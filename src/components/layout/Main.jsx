@@ -6,7 +6,7 @@ export default function Main() {
   const [actresses, setActresses] = useState([]);
   const [newActors, setNewActors] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-
+  const [search, setSearch] = useState("");
   const getActors = () => {
     setIsLoading(true);
     axios
@@ -75,13 +75,35 @@ export default function Main() {
     setIsLoading(false);
   }, []);
 
+  useEffect(() => {
+    if (search.length > 2) {
+      setNewActors(
+        newActors.filter((actor) =>
+          actor.name.toLowerCase().includes(search.toLowerCase())
+        )
+      );
+    } else {
+      setNewActors([...actors, ...actresses]);
+    }
+  }, [search]);
+
   return (
     <>
       <div className="container mx-auto flex-grow-1 border-2 border-b-black rounded-lg my-4">
-        <div className="flex flex-col">
-          <h1 className="text-2xl font-bold p-4 border-b-2">
-            Lista Attori e Attrici
-          </h1>
+        <div className="flex justify-between items-center p-4 border-b-2">
+          <h1 className="text-2xl font-bold ">Lista Attori e Attrici</h1>
+          <div className="search-container">
+            <label className="mr-2" htmlFor="search">
+              Cerca un attore
+            </label>
+            <input
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              className="border-2 border-gray-300 rounded-lg p-2"
+              type="text"
+              placeholder="Cerca un attore"
+            />
+          </div>
         </div>
         {isLoading ? (
           <div className="flex justify-center items-center h-full">
