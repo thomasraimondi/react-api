@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
 import CardActors from "../actors/CardActors";
+import Search from "../ui/Search";
 
 export default function Main() {
   const [actors, setActors] = useState([]);
@@ -94,18 +95,7 @@ export default function Main() {
       <div className="container mx-auto flex-grow-1 border-2 border-b-black rounded-lg my-4">
         <div className="flex justify-between items-center p-4 border-b-2">
           <h1 className="text-2xl font-bold ">Lista Attori e Attrici</h1>
-          <div className="search-container">
-            <label className="mr-2" htmlFor="search">
-              Cerca un attore
-            </label>
-            <input
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-              className="border-2 border-gray-300 rounded-lg p-2"
-              type="text"
-              placeholder="Cerca un attore"
-            />
-          </div>
+          <Search search={search} setSearch={setSearch} />
         </div>
         {isLoading ? (
           <div className="flex justify-center items-center h-full">
