@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 export default function Main() {
   const [actors, setActors] = useState([]);
   const [actresses, setActresses] = useState([]);
+  const [newActors, setNewActors] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
   const getActors = () => {
@@ -12,28 +13,36 @@ export default function Main() {
       .get("https://lanciweb.github.io/demo/api/actors/")
       .then((response) => {
         setActors(response.data);
+      })
+      .then(() => {
+        axios
+          .get("https://lanciweb.github.io/demo/api/actresses/")
+          .then((response) => {
+            setActresses(response.data);
+          });
       });
+    setNewActors([...actors, ...actresses]);
+    setIsLoading(false);
   };
 
-  const getActresses = () => {
-    setIsLoading(true);
-    axios
-      .get("https://lanciweb.github.io/demo/api/actresses/")
-      .then((response) => {
-        setActresses(response.data);
-      });
-  };
+  //   const getActresses = () => {
+  //     setIsLoading(true);
+  //     axios
+  //       .get("https://lanciweb.github.io/demo/api/actresses/")
+  //       .then((response) => {
+  //         setActresses(response.data);
+  //       });
+  //   };
 
   useEffect(() => {
     getActors();
-
     setIsLoading(false);
   }, []);
 
-  useEffect(() => {
-    getActresses();
-    setIsLoading(false);
-  }, []);
+  //   useEffect(() => {
+  //     getActresses();
+  //     setIsLoading(false);
+  //   }, []);
 
   return (
     <>
@@ -48,7 +57,7 @@ export default function Main() {
           </div>
         ) : (
           <div className="flex gap-4 flex-wrap justify-center p-4">
-            {actresses.map((actor) => (
+            {newActors.map((actor) => (
               <div
                 className="card border-2 border-gray-300 rounded-lg p-4 w-1/4"
                 key={actor.id}
@@ -86,7 +95,7 @@ export default function Main() {
           </div>
         )}
       </div>
-      <div className="container mx-auto flex-grow-1 border-2 border-b-black rounded-lg my-4">
+      {/* <div className="container mx-auto flex-grow-1 border-2 border-b-black rounded-lg my-4">
         <div className="flex flex-col">
           <h1 className="text-2xl font-bold p-4 border-b-2">Lista Attori</h1>
         </div>
@@ -134,7 +143,7 @@ export default function Main() {
             ))}
           </div>
         )}
-      </div>
+      </div> */}
     </>
   );
 }
