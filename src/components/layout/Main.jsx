@@ -40,7 +40,7 @@ export default function Main() {
             >
               <div className="card-image">
                 <img
-                  className="w-full h-full object-cover"
+                  className="w-full h-64 object-contain"
                   src={actor.image}
                   alt={actor.name}
                 />
