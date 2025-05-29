@@ -17,54 +17,32 @@ export default function Main() {
       .then((response) => {
         const res = response.data;
         setActors(
-          res.map(
-            ({
-              id,
-              image,
-              name,
-              birth_year,
-              nationality,
-              biography,
-              awards,
-            }) => ({
-              id: "actor-" + id,
-              image,
-              name,
-              birth_year,
-              nationality,
-              biography,
-              awards,
-            })
-          )
+          res.map(({ id, image, name, birth_year, nationality, biography, awards }) => ({
+            id: "actor-" + id,
+            image,
+            name,
+            birth_year,
+            nationality,
+            biography,
+            awards,
+          }))
         );
       })
       .then(() => {
-        axios
-          .get("https://lanciweb.github.io/demo/api/actresses/")
-          .then((response) => {
-            const res = response.data;
-            setActresses(
-              res.map(
-                ({
-                  id,
-                  image,
-                  name,
-                  birth_year,
-                  nationality,
-                  biography,
-                  awards,
-                }) => ({
-                  id: "actress-" + id,
-                  image,
-                  name,
-                  birth_year,
-                  nationality,
-                  biography,
-                  awards,
-                })
-              )
-            );
-          });
+        axios.get("https://lanciweb.github.io/demo/api/actresses/").then((response) => {
+          const res = response.data;
+          setActresses(
+            res.map(({ id, image, name, birth_year, nationality, biography, awards }) => ({
+              id: "actress-" + id,
+              image,
+              name,
+              birth_year,
+              nationality,
+              biography,
+              awards,
+            }))
+          );
+        });
       });
     setIsLoading(false);
   };
@@ -80,11 +58,7 @@ export default function Main() {
 
   useEffect(() => {
     if (search.length > 2) {
-      setNewActors(
-        newActors.filter((actor) =>
-          actor.name.toLowerCase().includes(search.toLowerCase())
-        )
-      );
+      setNewActors(newActors.filter((actor) => actor.name.toLowerCase().includes(search.toLowerCase())));
     } else {
       setNewActors([...actors, ...actresses]);
     }
